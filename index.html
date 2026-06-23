@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreenScape Pro — Tampa's Most Trusted Lawn Care & Landscaping</title>
+  <meta name="description" content="GreenScape Pro delivers premium lawn care & landscaping in Greater Tampa. Reliable crews, free estimates, results guaranteed. Get your free quote today." />
+
+  <!-- Favicon (inline leaf SVG) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2322c55e'%3E%3Cpath d='M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z'/%3E%3C/svg%3E" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Poppins (headings) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            forest: '#14532d',
+            forestdark: '#0f3d22',
+            fresh: '#22c55e',
+            freshdark: '#16a34a',
+            cream: '#faf8f1',
+            charcoal: '#1f2937',
+            gold: '#d4af6a',
+          },
+          fontFamily: {
+            heading: ['Poppins', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+          boxShadow: {
+            soft: '0 10px 40px -12px rgba(20, 83, 45, 0.18)',
+            lift: '0 24px 60px -18px rgba(20, 83, 45, 0.30)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html { font-family: 'Inter', sans-serif; }
+    h1, h2, h3, h4, .font-heading { font-family: 'Poppins', sans-serif; }
+    body { background-color: #ffffff; color: #1f2937; }
+
+    /* Scroll-reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: opacity, transform;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero subtle zoom */
+    @keyframes slowZoom {
+      from { transform: scale(1.05); }
+      to { transform: scale(1.15); }
+    }
+    .hero-bg { animation: slowZoom 22s ease-in-out infinite alternate; }
+
+    /* Custom scrollbar (desktop) */
+    @media (min-width: 768px) {
+      ::-webkit-scrollbar { width: 11px; }
+      ::-webkit-scrollbar-track { background: #faf8f1; }
+      ::-webkit-scrollbar-thumb { background: #14532d; border-radius: 999px; border: 3px solid #faf8f1; }
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #22c55e, #d4af6a);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { transition: none; opacity: 1; transform: none; }
+      .hero-bg { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body class="font-body antialiased text-charcoal">
+
+  <!-- ══════════════ STICKY NAVBAR ══════════════ -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+    <nav class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="#hero" class="flex items-center gap-2.5 group">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-fresh shadow-md group-hover:scale-105 transition-transform">
+            <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
+            </svg>
+          </span>
+          <span id="logoText" class="text-xl font-heading font-700 font-bold text-white transition-colors">GreenScape<span class="text-fresh"> Pro</span></span>
+        </a>
+
+        <!-- Desktop links -->
+        <div class="hidden lg:flex items-center gap-9">
+          <a href="#services" class="nav-link text-white/90 hover:text-fresh font-medium transition-colors">Services</a>
+          <a href="#gallery" class="nav-link text-white/90 hover:text-fresh font-medium transition-colors">Gallery</a>
+          <a href="#why" class="nav-link text-white/90 hover:text-fresh font-medium transition-colors">Why Us</a>
+          <a href="#reviews" class="nav-link text-white/90 hover:text-fresh font-medium transition-colors">Reviews</a>
+          <a href="#contact" class="nav-link text-white/90 hover:text-fresh font-medium transition-colors">Contact</a>
+          <a href="#contact" class="inline-flex items-center gap-2 bg-fresh hover:bg-freshdark text-white font-semibold px-5 py-2.5 rounded-full shadow-md hover:shadow-lift hover:-translate-y-0.5 transition-all duration-200">
+            Get Free Quote
+          </a>
+        </div>
+
+        <!-- Mobile hamburger -->
+        <button id="menuBtn" aria-label="Open menu" aria-expanded="false" class="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg text-white hover:bg-white/10 transition">
+          <svg id="iconOpen" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg id="iconClose" class="w-7 h-7 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="lg:hidden hidden bg-forest/98 backdrop-blur-sm border-t border-white/10">
+      <div class="px-5 py-5 flex flex-col gap-1">
+        <a href="#services" class="mobile-link text-white/90 hover:text-fresh font-medium py-3 border-b border-white/10">Services</a>
+        <a href="#gallery" class="mobile-link text-white/90 hover:text-fresh font-medium py-3 border-b border-white/10">Gallery</a>
+        <a href="#why" class="mobile-link text-white/90 hover:text-fresh font-medium py-3 border-b border-white/10">Why Us</a>
+        <a href="#reviews" class="mobile-link text-white/90 hover:text-fresh font-medium py-3 border-b border-white/10">Reviews</a>
+        <a href="#contact" class="mobile-link text-white/90 hover:text-fresh font-medium py-3 border-b border-white/10">Contact</a>
+        <a href="#contact" class="mobile-link mt-3 text-center bg-fresh hover:bg-freshdark text-white font-semibold px-5 py-3.5 rounded-full shadow-md transition">Get Free Quote</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════ HERO ══════════════ -->
+  <section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
+    <!-- Background image -->
+    <div class="absolute inset-0">
+      <img src="https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1600" alt="Beautifully landscaped Tampa yard" class="hero-bg w-full h-full object-cover" fetchpriority="high" />
+      <div class="absolute inset-0 bg-gradient-to-br from-forestdark/90 via-forest/75 to-charcoal/80"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-forestdark/80 via-transparent to-transparent"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 py-32 w-full">
+      <div class="max-w-3xl">
+        <span class="reveal inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm font-medium px-4 py-1.5 rounded-full mb-6">
+          <span class="w-2 h-2 rounded-full bg-fresh animate-pulse"></span>
+          Tampa • St. Petersburg • Clearwater
+        </span>
+
+        <h1 class="reveal text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold text-white leading-[1.08] tracking-tight" style="transition-delay:.05s">
+          Tampa's Most Trusted <span class="gradient-text">Lawn Care</span> &amp; Landscaping
+        </h1>
+
+        <p class="reveal mt-6 text-lg sm:text-xl text-white/85 leading-relaxed max-w-2xl" style="transition-delay:.12s">
+          Transform your yard into a showpiece. Reliable crews, free estimates, and results guaranteed — every single visit.
+        </p>
+
+        <div class="reveal mt-9 flex flex-col sm:flex-row gap-4" style="transition-delay:.18s">
+          <a href="#contact" class="inline-flex items-center justify-center gap-2 bg-fresh hover:bg-freshdark text-white text-lg font-semibold px-8 py-4 rounded-full shadow-lift hover:-translate-y-1 transition-all duration-200">
+            Get My Free Quote
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+          <a href="tel:+18135550147" class="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm border-2 border-white/40 hover:border-white text-white text-lg font-semibold px-8 py-4 rounded-full hover:bg-white/20 transition-all duration-200">
+            📞 Call (813) 555-0147
+          </a>
+        </div>
+
+        <p class="reveal mt-8 text-white/80 text-sm sm:text-base flex flex-wrap items-center gap-x-3 gap-y-1" style="transition-delay:.24s">
+          <span class="text-gold">★★★★★</span>
+          <span class="font-semibold">5.0 rating</span>
+          <span class="text-white/40">·</span>
+          <span>Licensed &amp; Insured</span>
+          <span class="text-white/40">·</span>
+          <span>Serving Greater Tampa</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Scroll cue -->
+    <a href="#services" aria-label="Scroll down" class="absolute bottom-7 left-1/2 -translate-x-1/2 z-10 text-white/70 hover:text-white transition hidden sm:block">
+      <svg class="w-7 h-7 animate-bounce" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+    </a>
+  </section>
+
+  <!-- ══════════════ TRUST BAR ══════════════ -->
+  <section class="bg-forest text-white">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-7">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y-0 md:divide-x md:divide-white/15">
+        <div class="reveal px-2">
+          <div class="text-2xl sm:text-3xl font-heading font-bold text-fresh">200+</div>
+          <div class="text-sm text-white/80 mt-1">Yards Transformed</div>
+        </div>
+        <div class="reveal px-2" style="transition-delay:.07s">
+          <div class="text-2xl sm:text-3xl font-heading font-bold text-fresh">100%</div>
+          <div class="text-sm text-white/80 mt-1">Licensed &amp; Insured</div>
+        </div>
+        <div class="reveal px-2" style="transition-delay:.14s">
+          <div class="text-2xl sm:text-3xl font-heading font-bold text-fresh">Same-Day</div>
+          <div class="text-sm text-white/80 mt-1">Free Quotes</div>
+        </div>
+        <div class="reveal px-2" style="transition-delay:.21s">
+          <div class="text-2xl sm:text-3xl font-heading font-bold text-fresh">100%</div>
+          <div class="text-sm text-white/80 mt-1">Satisfaction Guarantee</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ SERVICES ══════════════ -->
+  <section id="services" class="bg-cream py-20 sm:py-28">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="reveal text-fresh font-semibold tracking-wide uppercase text-sm">What We Do</span>
+        <h2 class="reveal text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-forest mt-3" style="transition-delay:.05s">
+          Full-Service Lawn &amp; Landscape Care
+        </h2>
+        <p class="reveal text-charcoal/70 mt-4 text-lg" style="transition-delay:.1s">
+          One expert local team for everything your yard needs — done right, on time, every time.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
+        <!-- Card: Mowing -->
+        <div class="reveal group bg-white rounded-2xl p-8 shadow-soft hover:shadow-lift hover:-translate-y-2 transition-all duration-300 border border-black/5">
+          <div class="w-14 h-14 rounded-xl bg-fresh/10 text-fresh flex items-center justify-center mb-5 group-hover:bg-fresh group-hover:text-white transition-colors">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21V8m0 0a3 3 0 003-3h3a3 3 0 003 3 3 3 0 003 3h6M3 8a3 3 0 013-3"/><circle cx="7" cy="21" r="0"/></svg>
+          </div>
+          <h3 class="text-xl font-heading font-semibold text-forest">Lawn Mowing &amp; Maintenance</h3>
+          <p class="text-charcoal/70 mt-2 leading-relaxed">Crisp, healthy turf with dependable weekly and bi-weekly service you never have to think about.</p>
+        </div>
+
+        <!-- Card: Design -->
+        <div class="reveal group bg-white rounded-2xl p-8 shadow-soft hover:shadow-lift hover:-translate-y-2 transition-all duration-300 border border-black/5" style="transition-delay:.06s">
+          <div class="w-14 h-14 rounded-xl bg-fresh/10 text-fresh flex items-center justify-center mb-5 group-hover:bg-fresh group-hover:text-white transition-colors">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/></svg>
+          </div>
+          <h3 class="text-xl font-heading font-semibold text-forest">Landscape Design &amp; Installation</h3>
+          <p class="text-charcoal/70 mt-2 leading-relaxed">Custom designs that boost curb appeal and value — built to thrive in Florida's climate.</p>
+        </div>
+
+        <!-- Card: Trimming -->
+        <div class="reveal group bg-white rounded-2xl p-8 shadow-soft hover:shadow-lift hover:-translate-y-2 transition-all duration-300 border border-black/5" style="transition-delay:.12s">
+          <div class="w-14 h-14 rounded-xl bg-fresh/10 text-fresh flex items-center justify-center mb-5 group-hover:bg-fresh group-hover:text-white transition-colors">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.848 8.25l1.536.887M7.848 8.25a3 3 0 11-5.196-3 3 3 0 015.196 3zm1.536.887a2.165 2.165 0 011.083 1.839c.005.351.054.695.14 1.024M9.384 9.137l5.857 3.38m0 0a2.165 2.165 0 011.083 1.838c.005.352.054.696.14 1.025m-1.223-2.863l5.857-3.38m-5.857 3.38a3 3 0 105.196 3 3 3 0 00-5.196-3z"/></svg>
+          </div>
+          <h3 class="text-xl font-heading font-semibold text-forest">Tree &amp; Shrub Trimming</h3>
+          <p class="text-charcoal/70 mt-2 leading-relaxed">Precise, healthy pruning that keeps your trees and hedges shapely, safe, and flourishing.</p>
+        </div>
+
+        <!-- Card: Irrigation -->
+        <div class="reveal group bg-white rounded-2xl p-8 shadow-soft hover:shadow-lift hover:-translate-y-2 transition-all duration-300 border border-black/5" style="transition-delay:.06s">
+          <div class="w-14 h-14 rounded-xl bg-fresh/10 text-fresh flex items-center justify-center mb-5 group-hover:bg-fresh group-hover:text-white transition-colors">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 005.196-1.636M12 21a9 9 0 01-5.196-1.636M12 3v2.25m0 0a6.75 6.75 0 016.75 6.75c0 .81-.122 1.59-.348 2.326M12 5.25A6.75 6.75 0 005.25 12c0 .81.122 1.59.348 2.326"/></svg>
+          </div>
+          <h3 class="text-xl font-heading font-semibold text-forest">Irrigation &amp; Sprinkler Systems</h3>
+          <p class="text-charcoal/70 mt-2 leading-relaxed">Efficient install, repair, and tuning so your landscape gets perfect water — and you save money.</p>
+        </div>
+
+        <!-- Card: Mulching -->
+        <div class="reveal group bg-white rounded-2xl p-8 shadow-soft hover:shadow-lift hover:-translate-y-2 transition-all duration-300 border border-black/5" style="transition-delay:.12s">
+          <div class="w-14 h-14 rounded-xl bg-fresh/10 text-fresh flex items-center justify-center mb-5 group-hover:bg-fresh group-hover:text-white transition-colors">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m0 0c-4.5 0-8-1.5-8-3.5M12 21c4.5 0 8-1.5 8-3.5M12 12c-3 0-5.5-1-5.5-2.5S9 7 12 7s5.5 1 5.5 2.5S15 12 12 12z"/></svg>
+          </div>
+          <h3 class="text-xl font-heading font-semibold text-forest">Mulching, Sod &amp; Planting</h3>
+          <p class="text-charcoal/70 mt-2 leading-relaxed">Fresh sod, vibrant plantings, and clean mulch beds that make your whole yard pop instantly.</p>
+        </div>
+
+        <!-- Card: Cleanup -->
+        <div class="reveal group bg-white rounded-2xl p-8 shadow-soft hover:shadow-lift hover:-translate-y-2 transition-all duration-300 border border-black/5" style="transition-delay:.18s">
+          <div class="w-14 h-14 rounded-xl bg-fresh/10 text-fresh flex items-center justify-center mb-5 group-hover:bg-fresh group-hover:text-white transition-colors">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 010 1.954l-7.108 4.061A1.125 1.125 0 013 16.811V8.69zM12.75 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 010 1.954l-7.108 4.061a1.125 1.125 0 01-1.683-.977V8.69z"/></svg>
+          </div>
+          <h3 class="text-xl font-heading font-semibold text-forest">Seasonal Cleanup</h3>
+          <p class="text-charcoal/70 mt-2 leading-relaxed">Leaf, storm, and debris cleanup that resets your property to picture-perfect in a single visit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ WHY CHOOSE US ══════════════ -->
+  <section id="why" class="bg-white py-20 sm:py-28">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <!-- Image -->
+        <div class="reveal relative">
+          <img src="https://images.unsplash.com/photo-1530541930197-ff16ac917b0e?w=800" alt="GreenScape Pro crew at work" loading="lazy" class="rounded-2xl shadow-lift w-full h-[420px] sm:h-[520px] object-cover" />
+          <div class="absolute -bottom-6 -right-4 sm:right-6 bg-white rounded-2xl shadow-lift p-5 max-w-[230px] border border-black/5">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-full bg-fresh/15 text-fresh flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <div class="font-heading font-bold text-forest leading-tight">Results</div>
+                <div class="text-sm text-charcoal/60">Guaranteed</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Benefits -->
+        <div>
+          <span class="reveal text-fresh font-semibold tracking-wide uppercase text-sm">Why Choose Us</span>
+          <h2 class="reveal text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-forest mt-3" style="transition-delay:.05s">
+            The Local Team Tampa Homeowners Trust
+          </h2>
+          <p class="reveal text-charcoal/70 mt-4 text-lg" style="transition-delay:.1s">
+            We treat your yard like it's our own — with honest pricing, dependable crews, and a guarantee that means something.
+          </p>
+
+          <div class="mt-8 space-y-5">
+            <!-- Benefit row -->
+            <div class="reveal flex gap-4" style="transition-delay:.12s">
+              <span class="shrink-0 w-9 h-9 rounded-full bg-fresh text-white flex items-center justify-center mt-0.5"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+              <div>
+                <h3 class="font-heading font-semibold text-forest text-lg">Free, Fast Estimates</h3>
+                <p class="text-charcoal/70">Same-day quotes with no pressure and no hidden fees — ever.</p>
+              </div>
+            </div>
+            <div class="reveal flex gap-4" style="transition-delay:.18s">
+              <span class="shrink-0 w-9 h-9 rounded-full bg-fresh text-white flex items-center justify-center mt-0.5"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+              <div>
+                <h3 class="font-heading font-semibold text-forest text-lg">Dependable Local Crew</h3>
+                <p class="text-charcoal/70">Tampa-based, background-checked professionals who show up on schedule.</p>
+              </div>
+            </div>
+            <div class="reveal flex gap-4" style="transition-delay:.24s">
+              <span class="shrink-0 w-9 h-9 rounded-full bg-fresh text-white flex items-center justify-center mt-0.5"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+              <div>
+                <h3 class="font-heading font-semibold text-forest text-lg">Upfront, Honest Pricing</h3>
+                <p class="text-charcoal/70">Clear flat-rate quotes you approve before we lift a finger.</p>
+              </div>
+            </div>
+            <div class="reveal flex gap-4" style="transition-delay:.3s">
+              <span class="shrink-0 w-9 h-9 rounded-full bg-fresh text-white flex items-center justify-center mt-0.5"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+              <div>
+                <h3 class="font-heading font-semibold text-forest text-lg">Satisfaction Guaranteed</h3>
+                <p class="text-charcoal/70">Not thrilled? We'll make it right — that's our promise to every customer.</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="#contact" class="reveal inline-flex items-center gap-2 mt-9 bg-fresh hover:bg-freshdark text-white font-semibold px-7 py-3.5 rounded-full shadow-md hover:shadow-lift hover:-translate-y-0.5 transition-all duration-200" style="transition-delay:.36s">
+            Get Started
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ GALLERY ══════════════ -->
+  <section id="gallery" class="bg-cream py-20 sm:py-28">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="reveal text-fresh font-semibold tracking-wide uppercase text-sm">Our Work</span>
+        <h2 class="reveal text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-forest mt-3" style="transition-delay:.05s">
+          Yards We're Proud Of
+        </h2>
+        <p class="reveal text-charcoal/70 mt-4 text-lg" style="transition-delay:.1s">
+          A glimpse of the transformations we deliver across Greater Tampa.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="reveal overflow-hidden rounded-2xl shadow-soft group">
+          <img src="https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?w=800" alt="Manicured lawn project" loading="lazy" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700" />
+        </div>
+        <div class="reveal overflow-hidden rounded-2xl shadow-soft group" style="transition-delay:.06s">
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800" alt="Lush garden design" loading="lazy" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700" />
+        </div>
+        <div class="reveal overflow-hidden rounded-2xl shadow-soft group" style="transition-delay:.12s">
+          <img src="https://images.unsplash.com/photo-1599629954294-14df9ec8506e?w=800" alt="Backyard transformation" loading="lazy" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700" />
+        </div>
+        <div class="reveal overflow-hidden rounded-2xl shadow-soft group" style="transition-delay:.06s">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800" alt="Patio and hardscape project" loading="lazy" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700" />
+        </div>
+        <div class="reveal overflow-hidden rounded-2xl shadow-soft group" style="transition-delay:.12s">
+          <img src="https://images.unsplash.com/photo-1558904541-efa843a96f01?w=800" alt="Front yard landscaping" loading="lazy" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700" />
+        </div>
+        <div class="reveal overflow-hidden rounded-2xl shadow-soft group" style="transition-delay:.18s">
+          <img src="https://images.unsplash.com/photo-1530541930197-ff16ac917b0e?w=800" alt="Crew installing landscape" loading="lazy" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700" />
+        </div>
+      </div>
+
+      <p class="reveal text-center text-charcoal/45 text-sm mt-8 italic">Sample portfolio — your real project photos go here.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════ PROCESS ══════════════ -->
+  <section id="process" class="bg-white py-20 sm:py-28">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="reveal text-fresh font-semibold tracking-wide uppercase text-sm">How It Works</span>
+        <h2 class="reveal text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-forest mt-3" style="transition-delay:.05s">
+          Your Dream Yard in 3 Easy Steps
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-10 relative">
+        <!-- connecting line (desktop) -->
+        <div class="hidden md:block absolute top-9 left-[16.66%] right-[16.66%] h-0.5 bg-fresh/25"></div>
+
+        <div class="reveal relative text-center">
+          <div class="w-18 h-18 mx-auto w-[72px] h-[72px] rounded-full bg-fresh text-white flex items-center justify-center text-2xl font-heading font-bold shadow-lift relative z-10">1</div>
+          <h3 class="text-xl font-heading font-semibold text-forest mt-6">Request a Free Quote</h3>
+          <p class="text-charcoal/70 mt-2 max-w-xs mx-auto">Tell us about your yard. We respond fast with an honest, no-obligation estimate.</p>
+        </div>
+        <div class="reveal relative text-center" style="transition-delay:.1s">
+          <div class="w-[72px] h-[72px] mx-auto rounded-full bg-fresh text-white flex items-center justify-center text-2xl font-heading font-bold shadow-lift relative z-10">2</div>
+          <h3 class="text-xl font-heading font-semibold text-forest mt-6">We Design &amp; Schedule</h3>
+          <p class="text-charcoal/70 mt-2 max-w-xs mx-auto">We map out the plan, lock in a time that works for you, and get to work.</p>
+        </div>
+        <div class="reveal relative text-center" style="transition-delay:.2s">
+          <div class="w-[72px] h-[72px] mx-auto rounded-full bg-fresh text-white flex items-center justify-center text-2xl font-heading font-bold shadow-lift relative z-10">3</div>
+          <h3 class="text-xl font-heading font-semibold text-forest mt-6">Enjoy Your Dream Yard</h3>
+          <p class="text-charcoal/70 mt-2 max-w-xs mx-auto">Relax and enjoy the best-looking yard on the block — backed by our guarantee.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ REVIEWS ══════════════ -->
+  <section id="reviews" class="bg-cream py-20 sm:py-28">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="reveal text-fresh font-semibold tracking-wide uppercase text-sm">Reviews</span>
+        <h2 class="reveal text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-forest mt-3" style="transition-delay:.05s">
+          What Tampa Homeowners Say
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-7">
+        <div class="reveal bg-white rounded-2xl p-8 shadow-soft hover:shadow-lift hover:-translate-y-1.5 transition-all duration-300 border border-black/5 flex flex-col">
+          <div class="text-gold text-lg">★★★★★</div>
+          <p class="text-charcoal/80 mt-4 leading-relaxed flex-1">"GreenScape Pro completely transformed our front yard. The crew was punctual, professional, and the result is stunning. Best money we've spent on the house."</p>
+          <div class="mt-6 flex items-center gap-3">
+            <div class="w-11 h-11 rounded-full bg-forest text-white flex items-center justify-center font-heading font-semibold">MR</div>
+            <div>
+              <div class="font-semibold text-forest">Maria R.</div>
+              <div class="text-sm text-charcoal/55">South Tampa</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal bg-white rounded-2xl p-8 shadow-soft hover:shadow-lift hover:-translate-y-1.5 transition-all duration-300 border border-black/5 flex flex-col" style="transition-delay:.08s">
+          <div class="text-gold text-lg">★★★★★</div>
+          <p class="text-charcoal/80 mt-4 leading-relaxed flex-1">"Reliable, fairly priced, and they actually show up when they say they will. Our lawn has never looked healthier. Highly recommend to any neighbor."</p>
+          <div class="mt-6 flex items-center gap-3">
+            <div class="w-11 h-11 rounded-full bg-forest text-white flex items-center justify-center font-heading font-semibold">JT</div>
+            <div>
+              <div class="font-semibold text-forest">James T.</div>
+              <div class="text-sm text-charcoal/55">Westchase</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal bg-white rounded-2xl p-8 shadow-soft hover:shadow-lift hover:-translate-y-1.5 transition-all duration-300 border border-black/5 flex flex-col" style="transition-delay:.16s">
+          <div class="text-gold text-lg">★★★★★</div>
+          <p class="text-charcoal/80 mt-4 leading-relaxed flex-1">"From design to install, the whole process was easy and stress-free. They listened to exactly what we wanted and delivered beyond expectations. Love it!"</p>
+          <div class="mt-6 flex items-center gap-3">
+            <div class="w-11 h-11 rounded-full bg-forest text-white flex items-center justify-center font-heading font-semibold">DK</div>
+            <div>
+              <div class="font-semibold text-forest">Danielle K.</div>
+              <div class="text-sm text-charcoal/55">Carrollwood</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="reveal text-center text-charcoal/45 text-sm mt-8 italic">Sample reviews shown for demonstration.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════ CTA BANNER ══════════════ -->
+  <section class="relative bg-forest overflow-hidden">
+    <div class="absolute inset-0 opacity-10" style="background-image:radial-gradient(circle at 20% 30%, #22c55e 0, transparent 40%), radial-gradient(circle at 80% 70%, #d4af6a 0, transparent 40%);"></div>
+    <div class="relative max-w-5xl mx-auto px-5 sm:px-8 py-16 sm:py-20 text-center">
+      <h2 class="reveal text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-white leading-tight">
+        Ready for the best-looking yard on your street?
+      </h2>
+      <p class="reveal text-white/80 mt-4 text-lg" style="transition-delay:.06s">Free estimates. Trusted crews. Results guaranteed.</p>
+      <a href="#contact" class="reveal inline-flex items-center gap-2 mt-8 bg-fresh hover:bg-white hover:text-forest text-white text-lg font-bold px-9 py-4 rounded-full shadow-lift hover:-translate-y-1 transition-all duration-200" style="transition-delay:.12s">
+        Get Your Free Quote Today
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ══════════════ CONTACT / LEAD FORM ══════════════ -->
+  <section id="contact" class="bg-white py-20 sm:py-28">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <!-- Left: persuasive text -->
+        <div>
+          <span class="reveal text-fresh font-semibold tracking-wide uppercase text-sm">Get In Touch</span>
+          <h2 class="reveal text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-forest mt-3" style="transition-delay:.05s">
+            Get Your Free Quote
+          </h2>
+          <p class="reveal text-charcoal/70 mt-4 text-lg" style="transition-delay:.1s">
+            Tell us a bit about your yard and we'll get back to you the same day with a no-pressure, honest estimate. Let's make your property the envy of the neighborhood.
+          </p>
+
+          <div class="mt-9 space-y-5">
+            <a href="tel:+18135550147" class="reveal flex items-center gap-4 group" style="transition-delay:.14s">
+              <span class="w-12 h-12 rounded-xl bg-fresh/10 text-fresh flex items-center justify-center group-hover:bg-fresh group-hover:text-white transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg></span>
+              <div>
+                <div class="text-sm text-charcoal/55">Call us</div>
+                <div class="font-semibold text-forest text-lg">(813) 555-0147</div>
+              </div>
+            </a>
+            <a href="mailto:hello@greenscapepro.com" class="reveal flex items-center gap-4 group" style="transition-delay:.18s">
+              <span class="w-12 h-12 rounded-xl bg-fresh/10 text-fresh flex items-center justify-center group-hover:bg-fresh group-hover:text-white transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg></span>
+              <div>
+                <div class="text-sm text-charcoal/55">Email us</div>
+                <div class="font-semibold text-forest text-lg">hello@greenscapepro.com</div>
+              </div>
+            </a>
+            <div class="reveal flex items-center gap-4" style="transition-delay:.22s">
+              <span class="w-12 h-12 rounded-xl bg-fresh/10 text-fresh flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>
+              <div>
+                <div class="text-sm text-charcoal/55">Hours</div>
+                <div class="font-semibold text-forest text-lg">Mon–Sat, 7:00 AM – 6:00 PM</div>
+              </div>
+            </div>
+            <div class="reveal flex items-center gap-4" style="transition-delay:.26s">
+              <span class="w-12 h-12 rounded-xl bg-fresh/10 text-fresh flex items-center justify-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg></span>
+              <div>
+                <div class="text-sm text-charcoal/55">Service area</div>
+                <div class="font-semibold text-forest text-lg">Tampa, St. Pete, Clearwater &amp; nearby</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: form card -->
+        <div class="reveal" style="transition-delay:.1s">
+          <div class="bg-cream rounded-2xl shadow-lift p-7 sm:p-9 border border-black/5">
+            <form id="quoteForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+              <!-- Web3Forms access key -->
+              <!-- PASTE WEB3FORMS ACCESS KEY HERE -->
+              <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
+              <input type="hidden" name="subject" value="New Free Quote Request — GreenScape Pro" />
+              <input type="hidden" name="from_name" value="GreenScape Pro Website" />
+              <!-- Honeypot -->
+              <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+
+              <div class="space-y-4">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-forest mb-1.5">Full Name <span class="text-fresh">*</span></label>
+                  <input type="text" id="name" name="name" required placeholder="Jane Doe" class="w-full rounded-xl border border-black/10 bg-white px-4 py-3 focus:ring-2 focus:ring-fresh focus:border-fresh outline-none transition" />
+                  <p class="err hidden text-sm text-red-600 mt-1">Please enter your name.</p>
+                </div>
+                <div>
+                  <label for="phone" class="block text-sm font-medium text-forest mb-1.5">Phone <span class="text-fresh">*</span></label>
+                  <input type="tel" id="phone" name="phone" required placeholder="(813) 555-0147" class="w-full rounded-xl border border-black/10 bg-white px-4 py-3 focus:ring-2 focus:ring-fresh focus:border-fresh outline-none transition" />
+                  <p class="err hidden text-sm text-red-600 mt-1">Please enter a valid phone number.</p>
+                </div>
+                <div>
+                  <label for="email" class="block text-sm font-medium text-forest mb-1.5">Email <span class="text-fresh">*</span></label>
+                  <input type="email" id="email" name="email" required placeholder="jane@email.com" class="w-full rounded-xl border border-black/10 bg-white px-4 py-3 focus:ring-2 focus:ring-fresh focus:border-fresh outline-none transition" />
+                  <p class="err hidden text-sm text-red-600 mt-1">Please enter a valid email address.</p>
+                </div>
+                <div>
+                  <label for="service" class="block text-sm font-medium text-forest mb-1.5">Service Needed</label>
+                  <select id="service" name="service" class="w-full rounded-xl border border-black/10 bg-white px-4 py-3 focus:ring-2 focus:ring-fresh focus:border-fresh outline-none transition">
+                    <option value="" disabled selected>Select a service…</option>
+                    <option>Lawn Mowing &amp; Maintenance</option>
+                    <option>Landscape Design &amp; Installation</option>
+                    <option>Tree &amp; Shrub Trimming</option>
+                    <option>Irrigation &amp; Sprinkler Systems</option>
+                    <option>Mulching, Sod &amp; Planting</option>
+                    <option>Seasonal Cleanup</option>
+                    <option>Other / Not Sure</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="message" class="block text-sm font-medium text-forest mb-1.5">Message</label>
+                  <textarea id="message" name="message" rows="4" placeholder="Tell us about your yard and what you're looking for…" class="w-full rounded-xl border border-black/10 bg-white px-4 py-3 focus:ring-2 focus:ring-fresh focus:border-fresh outline-none transition resize-none"></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn" class="w-full inline-flex items-center justify-center gap-2 bg-fresh hover:bg-freshdark text-white text-lg font-bold px-6 py-4 rounded-xl shadow-md hover:shadow-lift hover:-translate-y-0.5 transition-all duration-200">
+                  <span id="submitText">Get My Free Quote</span>
+                  <svg id="submitArrow" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </button>
+
+                <p class="text-xs text-center text-charcoal/50">We respond same-day. No spam, ever.</p>
+              </div>
+            </form>
+
+            <!-- Success message -->
+            <div id="formSuccess" class="hidden text-center py-10">
+              <div class="w-16 h-16 mx-auto rounded-full bg-fresh/15 text-fresh flex items-center justify-center mb-4">
+                <svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <h3 class="text-2xl font-heading font-bold text-forest">Thank you!</h3>
+              <p class="text-charcoal/70 mt-2">Your request is in. We'll reach out the same day with your free quote.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ FOOTER ══════════════ -->
+  <footer class="bg-forestdark text-white/80">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-16">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <!-- Brand -->
+        <div>
+          <div class="flex items-center gap-2.5 mb-4">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-fresh"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg></span>
+            <span class="text-lg font-heading font-bold text-white">GreenScape<span class="text-fresh"> Pro</span></span>
+          </div>
+          <p class="text-sm leading-relaxed text-white/70">Premium lawn care &amp; landscaping for Greater Tampa. Reliable crews, honest pricing, results guaranteed.</p>
+          <!-- Social -->
+          <div class="flex items-center gap-3 mt-5">
+            <a href="#" aria-label="Facebook" class="w-9 h-9 rounded-full bg-white/10 hover:bg-fresh flex items-center justify-center transition"><svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.69.24 2.69.24v2.97h-1.52c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg></a>
+            <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full bg-white/10 hover:bg-fresh flex items-center justify-center transition"><svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 01-1.38-.9 3.7 3.7 0 01-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.66-.67 1.07-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 00-1.38-2.13A5.9 5.9 0 0019.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 100 12.32 6.16 6.16 0 000-12.32zm0 10.16a4 4 0 110-8 4 4 0 010 8zm6.41-10.4a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg></a>
+            <a href="#" aria-label="Google" class="w-9 h-9 rounded-full bg-white/10 hover:bg-fresh flex items-center justify-center transition"><svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg></a>
+          </div>
+        </div>
+
+        <!-- Quick links -->
+        <div>
+          <h4 class="text-white font-heading font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="#services" class="hover:text-fresh transition">Services</a></li>
+            <li><a href="#gallery" class="hover:text-fresh transition">Gallery</a></li>
+            <li><a href="#why" class="hover:text-fresh transition">Why Us</a></li>
+            <li><a href="#reviews" class="hover:text-fresh transition">Reviews</a></li>
+            <li><a href="#contact" class="hover:text-fresh transition">Get a Quote</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="text-white font-heading font-semibold mb-4">Contact</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="tel:+18135550147" class="hover:text-fresh transition">(813) 555-0147</a></li>
+            <li><a href="mailto:hello@greenscapepro.com" class="hover:text-fresh transition">hello@greenscapepro.com</a></li>
+            <li>Tampa, Florida</li>
+          </ul>
+        </div>
+
+        <!-- Hours -->
+        <div>
+          <h4 class="text-white font-heading font-semibold mb-4">Business Hours</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li class="flex justify-between"><span>Mon – Fri</span><span class="text-white/60">7AM – 6PM</span></li>
+            <li class="flex justify-between"><span>Saturday</span><span class="text-white/60">8AM – 4PM</span></li>
+            <li class="flex justify-between"><span>Sunday</span><span class="text-white/60">Closed</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-white/10 mt-12 pt-7 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-white/60">
+        <p>Serving Tampa, St. Petersburg, Clearwater &amp; surrounding areas.</p>
+        <p>© <span id="year"></span> GreenScape Pro. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════ JAVASCRIPT ══════════════ -->
+  <script>
+    (function () {
+      'use strict';
+
+      // ---- Navbar scroll state ----
+      const navbar = document.getElementById('navbar');
+      const logoText = document.getElementById('logoText');
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      function onScroll() {
+        if (window.scrollY > 40) {
+          navbar.classList.add('bg-forest', 'shadow-lg');
+          navbar.classList.remove('py-2');
+        } else {
+          navbar.classList.remove('bg-forest', 'shadow-lg');
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // ---- Mobile menu ----
+      const menuBtn = document.getElementById('menuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const iconOpen = document.getElementById('iconOpen');
+      const iconClose = document.getElementById('iconClose');
+
+      function closeMenu() {
+        mobileMenu.classList.add('hidden');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      }
+      menuBtn.addEventListener('click', function () {
+        const isHidden = mobileMenu.classList.toggle('hidden');
+        iconOpen.classList.toggle('hidden', !isHidden);
+        iconClose.classList.toggle('hidden', isHidden);
+        menuBtn.setAttribute('aria-expanded', String(!isHidden));
+      });
+      document.querySelectorAll('.mobile-link').forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+      });
+
+      // ---- Scroll reveal (IntersectionObserver) ----
+      const revealEls = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(function (el) { io.observe(el); });
+      } else {
+        revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+      }
+
+      // ---- Current year ----
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // ---- Form validation + submit ----
+      const form = document.getElementById('quoteForm');
+      const success = document.getElementById('formSuccess');
+      const submitBtn = document.getElementById('submitBtn');
+      const submitText = document.getElementById('submitText');
+
+      function showError(input, show) {
+        const err = input.parentElement.querySelector('.err');
+        if (err) err.classList.toggle('hidden', !show);
+        input.classList.toggle('border-red-500', show);
+        input.classList.toggle('ring-1', show);
+        input.classList.toggle('ring-red-500', show);
+      }
+
+      function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+      function validPhone(v) { return v.replace(/[^0-9]/g, '').length >= 10; }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const name = form.name;
+        const phone = form.phone;
+        const email = form.email;
+        let ok = true;
+
+        if (!name.value.trim()) { showError(name, true); ok = false; } else showError(name, false);
+        if (!validPhone(phone.value)) { showError(phone, true); ok = false; } else showError(phone, false);
+        if (!validEmail(email.value)) { showError(email, true); ok = false; } else showError(email, false);
+
+        if (!ok) return;
+
+        // If no real access key is wired up yet, simulate success gracefully.
+        const accessKey = form.access_key.value;
+        submitText.textContent = 'Sending…';
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
+
+        const finishSuccess = function () {
+          form.classList.add('hidden');
+          success.classList.remove('hidden');
+          success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        };
+
+        if (!accessKey || accessKey === 'YOUR_ACCESS_KEY_HERE') {
+          // Demo mode — no backend wired yet.
+          setTimeout(finishSuccess, 700);
+          return;
+        }
+
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: new FormData(form),
+          });
+          if (res.ok) {
+            finishSuccess();
+          } else {
+            throw new Error('Submit failed');
+          }
+        } catch (err) {
+          submitText.textContent = 'Get My Free Quote';
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+          alert('Sorry, something went wrong. Please call us at (813) 555-0147.');
+        }
+      });
+
+      // Clear errors as user types
+      ['name', 'phone', 'email'].forEach(function (id) {
+        const el = document.getElementById(id);
+        el.addEventListener('input', function () { showError(el, false); });
+      });
+    })();
+  </script>
+</body>
+</html>
