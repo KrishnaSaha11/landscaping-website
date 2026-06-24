@@ -876,7 +876,16 @@
         // Exposed for the form's error alert (read lazily at submit time).
         window.__bizPhone = phone;
         // Every tel: link on the page -> dialable version (strip to digits/+).
-        var tel = 'tel:' + phone.replace(/[^0-9+]/g, '');
+        // Default-prepend US country code +1 when none is present; never double it.
+        var digits = phone.replace(/[^0-9+]/g, '');
+        var tel;
+        if (digits.charAt(0) === '+') {
+          tel = 'tel:' + digits;        // already has a country code
+        } else if (digits.charAt(0) === '1') {
+          tel = 'tel:+' + digits;       // US country code present, just add the +
+        } else {
+          tel = 'tel:+1' + digits;      // bare US number -> prepend +1
+        }
         document.querySelectorAll('a[href^="tel:"]').forEach(function (a) {
           a.setAttribute('href', tel);
         });
