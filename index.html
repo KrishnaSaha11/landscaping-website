@@ -87,6 +87,17 @@
       html { scroll-behavior: auto; }
     }
   </style>
+
+  <!-- Anti-flash: hide body until URL personalization runs. Only activates when
+       JS is available (no-JS visitors see content normally), with a timeout
+       fallback so the page never stays hidden if the script fails. -->
+  <style>html.perso-pending body { visibility: hidden; }</style>
+  <script>
+    document.documentElement.classList.add('perso-pending');
+    setTimeout(function () {
+      document.documentElement.classList.remove('perso-pending');
+    }, 1200);
+  </script>
 </head>
 
 <body class="font-body antialiased text-charcoal">
@@ -862,6 +873,9 @@
         var heroHeading = document.querySelector('#hero h1');
         if (heroHeading) replaceText(heroHeading, 'Tampa', city);
       }
+
+      // Reveal the page now that all swaps are applied (no flash of defaults).
+      document.documentElement.classList.remove('perso-pending');
     })();
   </script>
 </body>
