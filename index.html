@@ -811,7 +811,7 @@
           submitText.textContent = 'Get My Free Quote';
           submitBtn.disabled = false;
           submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
-          alert('Sorry, something went wrong. Please call us at (813) 555-0147.');
+          alert('Sorry, something went wrong. Please call us at ' + (window.__bizPhone || '(813) 555-0147') + '.');
         }
       });
 
@@ -836,9 +836,18 @@
       var phone = (params.get('phone') || '').trim();
       var city = (params.get('city') || '').trim();
 
-      // Replace a literal substring in every text node under `root`.
+      // Replace a literal substring in every text node under `root`
+      // (skipping <script>/<style>/<noscript> so source code is never mangled).
       function replaceText(root, find, repl) {
-        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+          acceptNode: function (n) {
+            var p = n.parentNode;
+            if (p && /^(SCRIPT|STYLE|NOSCRIPT)$/.test(p.nodeName)) {
+              return NodeFilter.FILTER_REJECT;
+            }
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        });
         var node;
         while ((node = walker.nextNode())) {
           if (node.nodeValue.indexOf(find) !== -1) {
@@ -859,11 +868,16 @@
       }
 
       if (phone) {
-        // Displayed number everywhere.
+        // Displayed number everywhere in visible copy.
         replaceText(document.body, '(813) 555-0147', phone);
-        // tel: links — strip to dialable characters.
+        // The lead form's example placeholder.
+        var phoneInput = document.getElementById('phone');
+        if (phoneInput) phoneInput.setAttribute('placeholder', phone);
+        // Exposed for the form's error alert (read lazily at submit time).
+        window.__bizPhone = phone;
+        // Every tel: link on the page -> dialable version (strip to digits/+).
         var tel = 'tel:' + phone.replace(/[^0-9+]/g, '');
-        document.querySelectorAll('a[href="tel:+18135550147"]').forEach(function (a) {
+        document.querySelectorAll('a[href^="tel:"]').forEach(function (a) {
           a.setAttribute('href', tel);
         });
       }
