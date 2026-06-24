@@ -102,7 +102,7 @@
               <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
             </svg>
           </span>
-          <span id="logoText" class="text-xl font-heading font-700 font-bold text-white transition-colors">GreenScape<span class="text-fresh"> Pro</span></span>
+          <span id="logoText" data-brand class="text-xl font-heading font-700 font-bold text-white transition-colors">GreenScape<span class="text-fresh"> Pro</span></span>
         </a>
 
         <!-- Desktop links -->
@@ -617,7 +617,7 @@
         <div>
           <div class="flex items-center gap-2.5 mb-4">
             <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-fresh"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/></svg></span>
-            <span class="text-lg font-heading font-bold text-white">GreenScape<span class="text-fresh"> Pro</span></span>
+            <span data-brand class="text-lg font-heading font-bold text-white">GreenScape<span class="text-fresh"> Pro</span></span>
           </div>
           <p class="text-sm leading-relaxed text-white/70">Premium lawn care &amp; landscaping for Greater Tampa. Reliable crews, honest pricing, results guaranteed.</p>
           <!-- Social -->
@@ -809,6 +809,59 @@
         const el = document.getElementById(id);
         el.addEventListener('input', function () { showError(el, false); });
       });
+    })();
+  </script>
+
+  <!-- ══════════════ URL-BASED PERSONALIZATION ══════════════ -->
+  <!-- Reuse one deployment for many prospects via query params, e.g.
+       ?company=Smith+Lawn+Care&phone=(813)+999-1234&city=Austin
+       Missing params keep the GreenScape Pro / Tampa defaults. -->
+  <script>
+    (function () {
+      'use strict';
+      var params = new URLSearchParams(window.location.search);
+      // URLSearchParams already decodes "+" to space and %XX escapes.
+      var company = (params.get('company') || '').trim();
+      var phone = (params.get('phone') || '').trim();
+      var city = (params.get('city') || '').trim();
+
+      // Replace a literal substring in every text node under `root`.
+      function replaceText(root, find, repl) {
+        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+        var node;
+        while ((node = walker.nextNode())) {
+          if (node.nodeValue.indexOf(find) !== -1) {
+            node.nodeValue = node.nodeValue.split(find).join(repl);
+          }
+        }
+      }
+
+      if (company) {
+        // Logo/footer brand: name is split across styled spans — set wholesale.
+        document.querySelectorAll('[data-brand]').forEach(function (el) {
+          el.textContent = company;
+        });
+        // Contiguous occurrences in body copy (reviews, copyright, etc.).
+        replaceText(document.body, 'GreenScape Pro', company);
+        // Page title.
+        document.title = document.title.split('GreenScape Pro').join(company);
+      }
+
+      if (phone) {
+        // Displayed number everywhere.
+        replaceText(document.body, '(813) 555-0147', phone);
+        // tel: links — strip to dialable characters.
+        var tel = 'tel:' + phone.replace(/[^0-9+]/g, '');
+        document.querySelectorAll('a[href="tel:+18135550147"]').forEach(function (a) {
+          a.setAttribute('href', tel);
+        });
+      }
+
+      if (city) {
+        // Only the hero headline's "Tampa" (keeps "Serving Greater Tampa" etc. intact).
+        var heroHeading = document.querySelector('#hero h1');
+        if (heroHeading) replaceText(heroHeading, 'Tampa', city);
+      }
     })();
   </script>
 </body>
